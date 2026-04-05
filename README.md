@@ -35,10 +35,22 @@
         .summary .total { color: var(--neon-yellow); font-size: 22px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
 
         .pay-method { display: flex; gap: 15px; margin-top: 15px; }
-        .method { flex: 1; padding: 15px; border: 1px solid #222; border-radius: 10px; text-align: center; cursor: pointer; position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 80px; }
         
-        /* Updated to match your filename */
-        .method img { width: 85px; height: auto; object-fit: contain; }
+        /* --- Logo Cropping Logic --- */
+        .logo-crop {
+            width: 80px; 
+            height: 45px; /* Height কমিয়ে দেওয়া হয়েছে যাতে নিচের লেখাটা কেটে যায় */
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* যাতে লোগোর উপরের অংশ ঠিক থাকে */
+        }
+        .logo-crop img {
+            width: 80px; 
+            height: auto;
+        }
+
+        .method { flex: 1; padding: 15px; border: 1px solid #222; border-radius: 10px; text-align: center; cursor: pointer; position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 80px; }
         .method.active { border-color: var(--bkash-color); background: rgba(209, 32, 83, 0.05); }
         .method.disabled { opacity: 0.4; cursor: not-allowed; }
         .badge-soon { position: absolute; top: -10px; right: -5px; background: #444; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
@@ -49,20 +61,25 @@
             background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;
         }
         .bkash-content { background: #fff; width: 90%; max-width: 400px; border-radius: 10px; overflow: hidden; color: #000; }
-        .bkash-header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
+        .bkash-header { 
+            background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee;
+            display: flex; justify-content: center;
+        }
+        /* Modal Logo Crop */
+        .header-crop { width: 120px; height: 65px; overflow: hidden; }
+        .header-crop img { width: 120px; height: auto; }
+
         .bkash-body { background: var(--bkash-color); color: #fff; padding: 20px; text-align: left; }
         .instr { font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
         .instr b { color: var(--neon-yellow); }
         .trx-input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; font-size: 16px; text-align: center; font-weight: bold; }
         
-        /* Styled Red Verify Button */
         .verify-btn { 
             width: 90%; margin: 0 auto 20px auto; display: block;
             padding: 15px; background: #d00000; color: #fff; 
             border: none; font-weight: bold; cursor: pointer; 
             font-size: 18px; border-radius: 8px; 
-            transition: 0.3s;
-            text-transform: uppercase;
+            transition: 0.3s; text-transform: uppercase;
         }
         .verify-btn:hover { background: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
 
@@ -112,11 +129,13 @@
         <h2 style="margin-top: 20px;">4. Select Payment Method</h2>
         <div class="pay-method">
             <div class="method active">
-                <img src="bikashlogo.png" alt="bkash">
+                <div class="logo-crop">
+                    <img src="bikashlogo.png" alt="bkash">
+                </div>
             </div>
             <div class="method disabled">
                 <span class="badge-soon">COMING SOON</span>
-                <img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="nagad">
+                <img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="nagad" style="width: 80px;">
             </div>
         </div>
         <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
@@ -126,7 +145,9 @@
 <div id="bkash-modal">
     <div class="bkash-content">
         <div class="bkash-header">
-            <img src="bikashlogo.png" width="120">
+            <div class="header-crop">
+                <img src="bikashlogo.png" alt="bkash">
+            </div>
         </div>
         <div class="bkash-body">
             <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">ট্রানজেকশন আইডি দিন</p>
