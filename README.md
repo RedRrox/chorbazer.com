@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +20,7 @@
         header { background: #000; padding: 15px 0; text-align: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--neon-yellow); letter-spacing: 3px; margin-bottom: 10px; }
         
-        nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        nav { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
         .nav-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
             color: #fff; padding: 6px 15px; border-radius: 5px; font-size: 13px; cursor: pointer;
@@ -49,18 +48,14 @@
         .item.active { border-color: var(--neon-green); background: rgba(0, 255, 136, 0.05); }
         .price { color: var(--neon-green); font-weight: bold; font-size: 18px; display: block; }
 
-        /* Special Pack */
+        /* Special Pack UI */
         .special-badge { position: absolute; top: 0; left: 0; background: #ff4444; color: #fff; font-size: 8px; font-weight: 800; padding: 2px 8px; border-radius: 0 0 8px 0; }
         .premium-card { grid-column: span 2; border: 1px solid #ff4444 !important; opacity: 0.8; cursor: not-allowed; }
         .stock-tag { background: #ff4444; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; }
 
-        .btn-buy { width: 100%; padding: 14px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-buy { width: 100%; padding: 14px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
 
-        /* Profile & Auth Styles */
-        .stat-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px; }
-        .auth-btn { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
-
-        /* --- Original bKash Modal --- */
+        /* --- bKash Modal --- */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
         .bkash-content { background: #fff; width: 92%; max-width: 340px; border-radius: 12px; overflow: hidden; color: #333; padding-bottom: 12px; }
         .bkash-header { padding: 8px; text-align: center; border-bottom: 1px solid #eee; }
@@ -77,7 +72,7 @@
         .glow-text { color: var(--neon-green); text-shadow: 0 0 8px rgba(0, 255, 136, 0.6); font-weight: bold; }
     </style>
 </head>
-<body onload="initApp()">
+<body onload="startOrderHistory()">
 
 <header>
     <div class="logo">CHOR BAZER</div>
@@ -85,12 +80,11 @@
         <button class="nav-btn" onclick="showPage('home')">Home</button>
         <button class="nav-btn" onclick="showPage('about')">About</button>
         <button class="nav-btn" onclick="showPage('contact')">Contact</button>
-        <button class="nav-btn" id="profile-btn" style="display:none;" onclick="showPage('profile')">Account</button>
     </nav>
 </header>
 
 <div id="home" class="page active">
-    <div id="notify-box">🚀 Initializing Server...</div>
+    <div id="notify-box">🚀 Secure Top-Up Active</div>
     <div class="box">
         <h2>1. Player UID</h2>
         <input type="text" id="uid-input" placeholder="Enter Player UID here">
@@ -114,33 +108,8 @@
     </div>
     <div class="box">
         <div style="color:var(--neon-green); font-size:20px; font-weight:bold;">Total: ৳ <span id="sum-total">0</span></div>
-        <button class="btn-buy" onclick="checkAuth()">BUY NOW</button>
+        <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
     </div>
-</div>
-
-<div id="login" class="page">
-    <div class="box" style="text-align:center;">
-        <h2>Login Required</h2>
-        <p style="font-size:13px; color:#aaa; margin:15px 0;">অর্ডার করতে আপনার একাউন্টে লগইন করুন।</p>
-        <button class="auth-btn" style="background:#fff; color:#000;" onclick="handleLogin('Google User')">Login with Google</button>
-        <button class="auth-btn" style="background:#1877F2; color:#fff;" onclick="handleLogin('Facebook User')">Login with Facebook</button>
-        <button onclick="showPage('home')" style="background:none; border:none; color:#666; margin-top:15px; font-size:12px;">Back to Home</button>
-    </div>
-</div>
-
-<div id="profile" class="page">
-    <div class="box">
-        <h3 id="user-display">User Name</h3>
-        <div class="stat-card">
-            <p style="font-size:12px; color:#aaa;">Total Spent</p>
-            <h4 style="color:var(--neon-green); font-size:22px;">৳ <span id="spent-amt">0</span></h4>
-        </div>
-    </div>
-    <div class="box">
-        <h2>Order History</h2>
-        <div id="history-list" style="font-size:13px; color:#777;">No orders found.</div>
-    </div>
-    <button onclick="logout()" style="width:100%; padding:10px; background:none; border:1px solid #ff4444; color:#ff4444; border-radius:8px;">Logout</button>
 </div>
 
 <div id="about" class="page">
@@ -164,7 +133,7 @@
         <div class="bkash-header"><img src="bikashlogo.png" alt="bkash"></div>
         <div class="bkash-main-body">
             <h3>ট্রান্সজেকশন আইডি দিন</h3>
-            <input type="text" class="trx-input-box" id="trx-input">
+            <input type="text" id="trx-input" style="width:100%; padding:8px; border-radius:4px; border:none; margin:10px 0; text-align:center; font-weight:bold;">
             <div class="bkash-steps">
                 <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:1px 5px; font-size:9px;">Copy</button></p>
                 <p>● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></p>
@@ -189,50 +158,12 @@
 </footer>
 
 <script>
-    let user = null;
-    let stats = { spent: 0, orders: [] };
     let selectedPrice = 0;
     let selectedPack = "";
-
-    function initApp() {
-        const savedUser = localStorage.getItem('user');
-        const savedStats = localStorage.getItem('stats');
-        if(savedUser) {
-            user = savedUser;
-            if(savedStats) stats = JSON.parse(savedStats);
-            updateUI();
-        }
-        startFakeHistory();
-    }
 
     function showPage(p) {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.getElementById(p).classList.add('active');
-    }
-
-    function handleLogin(name) {
-        user = name;
-        localStorage.setItem('user', name);
-        updateUI();
-        showPage('home');
-    }
-
-    function updateUI() {
-        if(user) {
-            document.getElementById('profile-btn').style.display = 'inline-block';
-            document.getElementById('user-display').innerText = user;
-            document.getElementById('spent-amt').innerText = stats.spent;
-            const list = document.getElementById('history-list');
-            if(stats.orders.length > 0) {
-                list.innerHTML = stats.orders.map(o => `<div>${o.date} - ${o.pack} (৳${o.price})</div>`).join('');
-            }
-        }
-    }
-
-    function checkAuth() {
-        if(!user) return showPage('login');
-        if(!selectedPrice || !document.getElementById('uid-input').value) return alert("UID ও প্যাক সিলেক্ট করুন!");
-        document.getElementById('bkash-modal').style.display = 'flex';
     }
 
     function selectPack(el, name, price) {
@@ -244,41 +175,30 @@
         document.getElementById('pay-amount').innerText = price;
     }
 
+    function openPayment() {
+        const uid = document.getElementById('uid-input').value;
+        if(!selectedPrice || !uid) return alert("UID ও প্যাক সিলেক্ট করুন!");
+        document.getElementById('bkash-modal').style.display = 'flex';
+    }
+
     function verifyOrder() {
-        if(document.getElementById('trx-input').value.length < 5) return alert("Invalid TrxID!");
-        
-        // Real Record
-        stats.spent += selectedPrice;
-        stats.orders.push({ pack: selectedPack, price: selectedPrice, date: new Date().toLocaleDateString() });
-        localStorage.setItem('stats', JSON.stringify(stats));
+        const trx = document.getElementById('trx-input').value;
+        if(trx.length < 5) return alert("Invalid TrxID!");
         
         document.getElementById('bkash-modal').style.display = 'none';
         document.getElementById('success-popup').style.display = 'flex';
         
         const notify = document.getElementById('notify-box');
-        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${document.getElementById('uid-input').value} just bought ${selectedPack}.</span>`;
-        updateUI();
+        const uid = document.getElementById('uid-input').value;
+        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${uid} just bought ${selectedPack}.</span>`;
     }
 
     function closeSuccess() {
         document.getElementById('success-popup').style.display = 'none';
-        showPage('profile');
+        location.reload();
     }
 
-    function logout() { localStorage.removeItem('user'); location.reload(); }
     function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Copied!"); }
 
-    function startFakeHistory() {
-        const ids = ["UID 4521***", "UID 9982***", "UID 1025***"];
-        setInterval(() => {
-            const n = document.getElementById('notify-box');
-            n.style.opacity = '0';
-            setTimeout(() => {
-                n.innerText = `✅ ${ids[Math.floor(Math.random()*ids.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
-                n.style.opacity = '1';
-            }, 500);
-        }, 10000);
-    }
-</script>
-</body>
-</html>
+    function startOrderHistory() {
+        const fakes = ["UID 4521***", "UID 9982***", "UID 1025***", "UID 7741***", "UID 3025***"];
