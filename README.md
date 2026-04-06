@@ -9,27 +9,30 @@
             --neon-yellow: #ccff00;
             --dark-bg: #0a0a0a;
             --card-bg: #151515;
-            --text-color: #ffffff;
             --bkash-color: #d12053;
         }
 
-        /* ৩. Light Mode Styling */
-        .light-mode {
-            --dark-bg: #ffffff;
-            --card-bg: #f9f9f9;
-            --text-color: #000000;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
-        body { background: var(--dark-bg); color: var(--text-color); padding-bottom: 50px; transition: 0.3s; }
+        body { background: var(--dark-bg); color: #fff; padding-bottom: 50px; }
 
-        header { background: #000; padding: 25px; text-align: center; border-bottom: 2px solid var(--neon-yellow); box-shadow: 0 0 20px rgba(204, 255, 0, 0.2); position: relative; }
+        header { background: #000; padding: 25px; text-align: center; border-bottom: 2px solid var(--neon-yellow); box-shadow: 0 0 20px rgba(204, 255, 0, 0.2); }
         .logo { font-family: 'Orbitron', sans-serif; font-size: 35px; color: var(--neon-yellow); letter-spacing: 5px; }
 
-        /* Theme Toggle Button */
-        .theme-btn { position: absolute; right: 10px; top: 30px; background: var(--neon-yellow); border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; }
-
         .container { max-width: 600px; margin: 20px auto; padding: 15px; }
+
+        /* Fake Order History Styling - Slow & Professional */
+        #fake-notify { 
+            background: rgba(204, 255, 0, 0.05); 
+            border: 1px dashed var(--neon-yellow); 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            font-weight: bold; 
+            color: var(--neon-yellow); 
+            font-size: 14px;
+            transition: opacity 0.5s ease-in-out;
+        }
 
         .box { background: var(--card-bg); border: 1px solid #222; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         h2 { font-size: 18px; margin-bottom: 15px; color: var(--neon-yellow); text-transform: uppercase; border-left: 4px solid var(--neon-yellow); padding-left: 10px; }
@@ -44,9 +47,6 @@
 
         .summary p { display: flex; justify-content: space-between; margin-bottom: 8px; color: #aaa; }
         .summary .total { color: var(--neon-yellow); font-size: 24px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
-
-        /* ৫. Fake Order History Styling */
-        #fake-notify { background: rgba(204, 255, 0, 0.1); border: 1px dashed var(--neon-yellow); padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold; color: var(--neon-yellow); font-size: 14px; }
 
         .pay-method { display: flex; gap: 15px; margin-top: 15px; }
         .logo-crop { width: 80px; height: 45px; overflow: hidden; display: flex; justify-content: center; align-items: flex-start; }
@@ -65,7 +65,7 @@
         .instr b { color: var(--neon-yellow); }
         .trx-input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 6px; border: none; font-size: 18px; text-align: center; font-weight: bold; text-transform: uppercase; }
         
-        /* ৬. Copy Button */
+        /* Copy Button */
         .copy-btn { background: #fff; color: #000; border: none; padding: 2px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; margin-left: 10px; font-weight: bold; }
 
         .delivery-notice { background: #fff9c4; color: #d32f2f; padding: 10px; font-size: 12px; text-align: center; font-weight: bold; border-top: 1px dashed #ccc; }
@@ -77,11 +77,10 @@
 
 <header>
     <div class="logo">CHOR BAZER</div>
-    <button class="theme-btn" onclick="toggleTheme()">LIGHT</button>
 </header>
 
 <div class="container">
-    <div id="fake-notify">🔥 Loading recent orders...</div>
+    <div id="fake-notify">🚀 Waiting for new orders...</div>
 
     <div class="box">
         <h2>1. Player UID</h2>
@@ -147,26 +146,29 @@
     let selectedPrice = 0;
     let selectedPackName = "";
 
-    // ৩. Theme Toggle
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        const btn = document.querySelector('.theme-btn');
-        btn.innerText = document.body.classList.contains('light-mode') ? "DARK" : "LIGHT";
-    }
-
-    // ৫. Fake Order Automation
+    // Fake Order Automation (10 Seconds Delay)
     const fakeData = [
         "ID 4521*** just bought Weekly!",
         "UID 9982*** received Monthly!",
         "Order #8841 for ID 1002*** completed!",
-        "Success! UID 7745*** got Weekly Member."
+        "Success! UID 7745*** got Weekly Member.",
+        "ID 1025*** just purchased Monthly!",
+        "Flash Sale! ID 3365*** got Weekly Member."
     ];
-    setInterval(() => {
-        const notify = document.getElementById('fake-notify');
-        notify.innerText = "🔥 " + fakeData[Math.floor(Math.random() * fakeData.length)];
-    }, 5000);
 
-    // ৬. Copy Function
+    function updateFakeNotify() {
+        const notify = document.getElementById('fake-notify');
+        notify.style.opacity = '0'; // Fade out
+        
+        setTimeout(() => {
+            notify.innerText = "🔥 " + fakeData[Math.floor(Math.random() * fakeData.length)];
+            notify.style.opacity = '1'; // Fade in
+        }, 500);
+    }
+    
+    setInterval(updateFakeNotify, 10000); // ১০ সেকেন্ড পর পর পাল্টাবে
+    updateFakeNotify(); // Initial call
+
     function copyNum() {
         const num = document.getElementById('target-num').innerText;
         navigator.clipboard.writeText(num);
