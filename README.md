@@ -97,10 +97,10 @@
                 <span class="stock-tag">OUT OF STOCK</span>
             </div>
             <div class="item" onclick="selectPack(this, 'Weekly ', 140)">
-                <span>Weekly Member</span><span class="price">৳ 140</span>
+                <span>Weekly </span><span class="price">৳ 140</span>
             </div>
             <div class="item" onclick="selectPack(this, 'Monthly ', 650)">
-                <span>Monthly Member</span><span class="price">৳ 650</span>
+                <span>Monthly </span><span class="price">৳ 650</span>
             </div>
         </div>
     </div>
