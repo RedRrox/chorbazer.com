@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,12 +21,13 @@
         header { background: #000; padding: 15px 0; text-align: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--neon-yellow); letter-spacing: 3px; margin-bottom: 10px; }
         
-        nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+        nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
         .nav-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-            color: #fff; padding: 6px 12px; border-radius: 5px; font-size: 12px; cursor: pointer;
+            color: #fff; padding: 6px 15px; border-radius: 5px; font-size: 13px; cursor: pointer;
+            transition: 0.3s;
         }
-        .nav-btn:hover { background: var(--neon-yellow); color: #000; }
+        .nav-btn:hover { background: var(--neon-yellow); color: #000; transform: translateX(3px); }
 
         .page { display: none; width: 95%; max-width: 450px; margin: 10px auto; animation: fadeIn 0.4s; }
         .page.active { display: block; }
@@ -40,28 +42,36 @@
         .box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 12px; }
         h2 { font-size: 14px; margin-bottom: 12px; color: var(--neon-yellow); text-transform: uppercase; border-left: 3px solid var(--neon-yellow); padding-left: 8px; }
 
-        /* Auth Styles */
-        .auth-container { text-align: center; padding: 20px; }
-        .auth-btn { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .google-btn { background: #fff; color: #000; }
-        .fb-btn { background: #1877F2; color: #fff; }
+        input[type="text"] { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: var(--neon-yellow); border-radius: 8px; text-align: center; font-weight: bold; outline: none; }
 
-        /* Profile Styles */
-        .profile-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .profile-img { width: 60px; height: 60px; border-radius: 50%; background: var(--neon-yellow); border: 2px solid var(--neon-green); }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .stat-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center; }
-
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .item { background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; position: relative; }
         .item.active { border-color: var(--neon-green); background: rgba(0, 255, 136, 0.05); }
         .price { color: var(--neon-green); font-weight: bold; font-size: 18px; display: block; }
 
+        /* Special Pack */
+        .special-badge { position: absolute; top: 0; left: 0; background: #ff4444; color: #fff; font-size: 8px; font-weight: 800; padding: 2px 8px; border-radius: 0 0 8px 0; }
+        .premium-card { grid-column: span 2; border: 1px solid #ff4444 !important; opacity: 0.8; cursor: not-allowed; }
+        .stock-tag { background: #ff4444; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; }
+
         .btn-buy { width: 100%; padding: 14px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
-        /* bKash & Popups */
-        #bkash-modal, #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
-        .bkash-content, .success-card { background: #fff; width: 92%; max-width: 340px; border-radius: 12px; overflow: hidden; }
-        .success-card { background: #111; border: 1px solid var(--neon-green); text-align: center; padding: 30px; }
+        /* Profile & Auth Styles */
+        .stat-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px; }
+        .auth-btn { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+
+        /* --- Original bKash Modal --- */
+        #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
+        .bkash-content { background: #fff; width: 92%; max-width: 340px; border-radius: 12px; overflow: hidden; color: #333; padding-bottom: 12px; }
+        .bkash-header { padding: 8px; text-align: center; border-bottom: 1px solid #eee; }
+        .bkash-header img { width: 70px; }
+        .bkash-main-body { background: #d12053; color: #fff; padding: 12px; margin: 0 10px; border-radius: 8px; text-align: center; }
+        .bkash-steps { text-align: left; font-size: 11px; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; margin-top: 10px; }
+        .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 12px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
+
+        /* Success Popup */
+        #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        .success-card { background: #111; border: 1px solid var(--neon-green); width: 85%; max-width: 300px; padding: 30px; border-radius: 20px; text-align: center; }
 
         footer { text-align: center; padding: 25px 10px; border-top: 1px solid var(--border-color); font-size: 10px; background: #000; }
         .glow-text { color: var(--neon-green); text-shadow: 0 0 8px rgba(0, 255, 136, 0.6); font-weight: bold; }
@@ -71,55 +81,16 @@
 
 <header>
     <div class="logo">CHOR BAZER</div>
-    <nav id="main-nav">
+    <nav>
         <button class="nav-btn" onclick="showPage('home')">Home</button>
         <button class="nav-btn" onclick="showPage('about')">About</button>
         <button class="nav-btn" onclick="showPage('contact')">Contact</button>
-        <button class="nav-btn" id="login-nav-btn" onclick="showPage('login')">Login</button>
-        <button class="nav-btn" id="profile-nav-btn" style="display:none;" onclick="showPage('profile')">My Account</button>
+        <button class="nav-btn" id="profile-btn" style="display:none;" onclick="showPage('profile')">Account</button>
     </nav>
 </header>
 
-<div id="login" class="page">
-    <div class="box auth-container">
-        <h2>Join Chor Bazer</h2>
-        <p style="font-size:13px; color:#aaa; margin-bottom:20px;">Please login to place an order</p>
-        <button class="auth-btn google-btn" onclick="handleAuth('Google User')"> Continue with Google</button>
-        <button class="auth-btn fb-btn" onclick="handleAuth('Facebook User')"> Continue with Facebook</button>
-    </div>
-</div>
-
-<div id="profile" class="page">
-    <div class="box">
-        <div class="profile-header">
-            <div class="profile-img"></div>
-            <div>
-                <h3 id="user-name-display">User Name</h3>
-                <p id="user-email" style="font-size:12px; color:#777;">logged in</p>
-            </div>
-        </div>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span style="font-size:10px; color:#aaa;">Total Spent</span>
-                <div style="color:var(--neon-green); font-size:18px; font-weight:bold;">৳ <span id="total-spent">0</span></div>
-            </div>
-            <div class="stat-card">
-                <span style="font-size:10px; color:#aaa;">Total Orders</span>
-                <div style="color:var(--neon-yellow); font-size:18px; font-weight:bold;"><span id="order-count">0</span></div>
-            </div>
-        </div>
-    </div>
-    <div class="box">
-        <h2>Order History</h2>
-        <div id="my-orders" style="font-size:13px; color:#ccc;">
-            No orders placed yet.
-        </div>
-    </div>
-    <button onclick="logout()" style="width:100%; background:none; border:1px solid #ff4444; color:#ff4444; padding:10px; border-radius:8px; cursor:pointer;">Logout</button>
-</div>
-
 <div id="home" class="page active">
-    <div id="notify-box">🚀 Loading server...</div>
+    <div id="notify-box">🚀 Initializing Server...</div>
     <div class="box">
         <h2>1. Player UID</h2>
         <input type="text" id="uid-input" placeholder="Enter Player UID here">
@@ -127,6 +98,12 @@
     <div class="box">
         <h2>2. Select Pack</h2>
         <div class="grid">
+            <div class="item premium-card">
+                <div class="special-badge">LIMITED TIME</div>
+                <span style="font-weight:700;">💎 2x Monthly Member 💎</span>
+                <span class="price" style="opacity: 0.5;">৳ 1</span>
+                <span class="stock-tag">OUT OF STOCK</span>
+            </div>
             <div class="item" onclick="selectPack(this, 'Weekly Member', 140)">
                 <span>Weekly Member</span><span class="price">৳ 140</span>
             </div>
@@ -137,32 +114,73 @@
     </div>
     <div class="box">
         <div style="color:var(--neon-green); font-size:20px; font-weight:bold;">Total: ৳ <span id="sum-total">0</span></div>
-        <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
+        <button class="btn-buy" onclick="checkAuth()">BUY NOW</button>
     </div>
 </div>
 
-<div id="about" class="page">
-    <div class="box"><h2>About</h2><p>Trusted Top-up Platform.</p></div>
+<div id="login" class="page">
+    <div class="box" style="text-align:center;">
+        <h2>Login Required</h2>
+        <p style="font-size:13px; color:#aaa; margin:15px 0;">অর্ডার করতে আপনার একাউন্টে লগইন করুন।</p>
+        <button class="auth-btn" style="background:#fff; color:#000;" onclick="handleLogin('Google User')">Login with Google</button>
+        <button class="auth-btn" style="background:#1877F2; color:#fff;" onclick="handleLogin('Facebook User')">Login with Facebook</button>
+        <button onclick="showPage('home')" style="background:none; border:none; color:#666; margin-top:15px; font-size:12px;">Back to Home</button>
+    </div>
 </div>
+
+<div id="profile" class="page">
+    <div class="box">
+        <h3 id="user-display">User Name</h3>
+        <div class="stat-card">
+            <p style="font-size:12px; color:#aaa;">Total Spent</p>
+            <h4 style="color:var(--neon-green); font-size:22px;">৳ <span id="spent-amt">0</span></h4>
+        </div>
+    </div>
+    <div class="box">
+        <h2>Order History</h2>
+        <div id="history-list" style="font-size:13px; color:#777;">No orders found.</div>
+    </div>
+    <button onclick="logout()" style="width:100%; padding:10px; background:none; border:1px solid #ff4444; color:#ff4444; border-radius:8px;">Logout</button>
+</div>
+
+<div id="about" class="page">
+    <div class="box">
+        <h2>About Chor Bazer</h2>
+        <p style="color:#ccc; line-height:1.6;">Welcome to <b>Chor Bazer</b>, the most trusted gaming top-up platform in Bangladesh. We provide Free Fire Membership and Diamonds with speed and security.</p>
+        <p style="color:#ccc; margin-top:10px;">✅ Fast Delivery<br>✅ 24/7 Support</p>
+    </div>
+</div>
+
 <div id="contact" class="page">
-    <div class="box"><h2>Contact</h2><button class="nav-btn">WhatsApp</button></div>
+    <div class="box">
+        <h2>Contact Us</h2>
+        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold;">Message on WhatsApp</button>
+        <p style="text-align:center; font-size:12px; margin-top:15px; color:#666;">Email: support@chorbazer.com</p>
+    </div>
 </div>
 
 <div id="bkash-modal">
     <div class="bkash-content">
-        <div style="background:#d12053; color:#fff; padding:20px; text-align:center;">
-            <h3>Transaction ID</h3>
-            <input type="text" id="trx-input" style="width:100%; padding:8px; margin:10px 0;">
-            <p style="font-size:11px;">Send Money to: 01779772201</p>
+        <div class="bkash-header"><img src="bikashlogo.png" alt="bkash"></div>
+        <div class="bkash-main-body">
+            <h3>ট্রান্সজেকশন আইডি দিন</h3>
+            <input type="text" class="trx-input-box" id="trx-input">
+            <div class="bkash-steps">
+                <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:1px 5px; font-size:9px;">Copy</button></p>
+                <p>● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></p>
+                <p>● পেমেন্ট শেষে TrxID টি উপরে বসিয়ে ভেরিফাই করুন।</p>
+            </div>
         </div>
-        <button class="verify-red-btn" onclick="handleRealOrder()" style="width:90%; margin:10px auto; display:block; padding:12px; background:#d00000; color:#fff; border:none; font-weight:bold;">VERIFY</button>
+        <button class="verify-red-btn" onclick="verifyOrder()">VERIFY</button>
+        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; color:#999; font-size:10px; margin-top:5px;">CANCEL</button>
     </div>
 </div>
 
 <div id="success-popup">
     <div class="success-card">
         <h2 style="color:var(--neon-green)">ORDER SUCCESS!</h2>
-        <button onclick="closeSuccess()" style="margin-top:20px; background:var(--neon-green); color:#000; border:none; padding:10px 25px; border-radius:5px; font-weight:bold;">CLOSE</button>
+        <p style="color:#aaa; margin:15px 0;">Processing your delivery...</p>
+        <button onclick="closeSuccess()" style="padding:10px 25px; background:var(--neon-green); color:#000; border:none; border-radius:5px; font-weight:bold;">CLOSE</button>
     </div>
 </div>
 
@@ -171,92 +189,75 @@
 </footer>
 
 <script>
-    let currentUser = null;
+    let user = null;
+    let stats = { spent: 0, orders: [] };
     let selectedPrice = 0;
-    let selectedPackName = "";
-    let userStats = { spent: 0, orders: [] };
+    let selectedPack = "";
 
     function initApp() {
-        const savedUser = localStorage.getItem('chor_user');
-        const savedStats = localStorage.getItem('chor_stats');
+        const savedUser = localStorage.getItem('user');
+        const savedStats = localStorage.getItem('stats');
         if(savedUser) {
-            currentUser = savedUser;
-            if(savedStats) userStats = JSON.parse(savedStats);
-            updateUIForLogin();
+            user = savedUser;
+            if(savedStats) stats = JSON.parse(savedStats);
+            updateUI();
         }
-        startOrderHistory();
+        startFakeHistory();
     }
 
-    function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
+    function showPage(p) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(p).classList.add('active');
     }
 
-    function handleAuth(name) {
-        currentUser = name;
-        localStorage.setItem('chor_user', name);
-        updateUIForLogin();
+    function handleLogin(name) {
+        user = name;
+        localStorage.setItem('user', name);
+        updateUI();
         showPage('home');
     }
 
-    function updateUIForLogin() {
-        document.getElementById('login-nav-btn').style.display = 'none';
-        document.getElementById('profile-nav-btn').style.display = 'inline-block';
-        document.getElementById('user-name-display').innerText = currentUser;
-        updateProfileData();
-    }
-
-    function logout() {
-        localStorage.removeItem('chor_user');
-        location.reload();
-    }
-
-    function selectPack(el, name, price) {
-        document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
-        el.classList.add('active');
-        selectedPrice = price; selectedPackName = name;
-        document.getElementById('sum-total').innerText = price;
-    }
-
-    function openPayment() {
-        if(!currentUser) {
-            alert("অর্ডার করতে আগে লগইন করুন!");
-            showPage('login');
-            return;
+    function updateUI() {
+        if(user) {
+            document.getElementById('profile-btn').style.display = 'inline-block';
+            document.getElementById('user-display').innerText = user;
+            document.getElementById('spent-amt').innerText = stats.spent;
+            const list = document.getElementById('history-list');
+            if(stats.orders.length > 0) {
+                list.innerHTML = stats.orders.map(o => `<div>${o.date} - ${o.pack} (৳${o.price})</div>`).join('');
+            }
         }
+    }
+
+    function checkAuth() {
+        if(!user) return showPage('login');
         if(!selectedPrice || !document.getElementById('uid-input').value) return alert("UID ও প্যাক সিলেক্ট করুন!");
         document.getElementById('bkash-modal').style.display = 'flex';
     }
 
-    function handleRealOrder() {
+    function selectPack(el, name, price) {
+        if(el.classList.contains('premium-card')) return;
+        document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+        selectedPrice = price; selectedPack = name;
+        document.getElementById('sum-total').innerText = price;
+        document.getElementById('pay-amount').innerText = price;
+    }
+
+    function verifyOrder() {
         if(document.getElementById('trx-input').value.length < 5) return alert("Invalid TrxID!");
         
-        // Save Order to History
-        const newOrder = {
-            pack: selectedPackName,
-            price: selectedPrice,
-            date: new Date().toLocaleDateString()
-        };
-        userStats.orders.push(newOrder);
-        userStats.spent += selectedPrice;
-        localStorage.setItem('chor_stats', JSON.stringify(userStats));
+        // Real Record
+        stats.spent += selectedPrice;
+        stats.orders.push({ pack: selectedPack, price: selectedPrice, date: new Date().toLocaleDateString() });
+        localStorage.setItem('stats', JSON.stringify(stats));
         
         document.getElementById('bkash-modal').style.display = 'none';
         document.getElementById('success-popup').style.display = 'flex';
-        updateProfileData();
-    }
-
-    function updateProfileData() {
-        document.getElementById('total-spent').innerText = userStats.spent;
-        document.getElementById('order-count').innerText = userStats.orders.length;
-        const container = document.getElementById('my-orders');
-        if(userStats.orders.length > 0) {
-            container.innerHTML = userStats.orders.map(o => 
-                `<div style="border-bottom:1px solid #222; padding:8px 0;">
-                    ${o.date} - ${o.pack} <span style="float:right; color:var(--neon-green)">৳${o.price}</span>
-                </div>`
-            ).join('');
-        }
+        
+        const notify = document.getElementById('notify-box');
+        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${document.getElementById('uid-input').value} just bought ${selectedPack}.</span>`;
+        updateUI();
     }
 
     function closeSuccess() {
@@ -264,14 +265,17 @@
         showPage('profile');
     }
 
-    function startOrderHistory() {
-        const fakes = ["UID 4521***", "UID 9982***", "UID 1025***", "UID 7745***"];
+    function logout() { localStorage.removeItem('user'); location.reload(); }
+    function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Copied!"); }
+
+    function startFakeHistory() {
+        const ids = ["UID 4521***", "UID 9982***", "UID 1025***"];
         setInterval(() => {
-            const notify = document.getElementById('notify-box');
-            notify.style.opacity = '0';
+            const n = document.getElementById('notify-box');
+            n.style.opacity = '0';
             setTimeout(() => {
-                notify.innerText = `✅ ${fakes[Math.floor(Math.random() * fakes.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
-                notify.style.opacity = '1';
+                n.innerText = `✅ ${ids[Math.floor(Math.random()*ids.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
+                n.style.opacity = '1';
             }, 500);
         }, 10000);
     }
