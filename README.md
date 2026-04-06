@@ -48,14 +48,12 @@
         .item.active { border-color: var(--neon-green); background: rgba(0, 255, 136, 0.05); }
         .price { color: var(--neon-green); font-weight: bold; font-size: 18px; display: block; }
 
-        /* Special Pack Styles */
         .special-badge { position: absolute; top: 0; left: 0; background: #ff4444; color: #fff; font-size: 8px; font-weight: 800; padding: 2px 8px; border-radius: 0 0 8px 0; }
         .premium-card { grid-column: span 2; border: 1px solid #ff4444 !important; opacity: 0.8; cursor: not-allowed; }
         .stock-tag { background: #ff4444; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; }
 
         .btn-buy { width: 100%; padding: 14px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
 
-        /* --- Original bKash Modal --- */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
         .bkash-content { background: #fff; width: 92%; max-width: 340px; border-radius: 12px; overflow: hidden; color: #333; padding-bottom: 12px; }
         .bkash-header { padding: 8px; text-align: center; border-bottom: 1px solid #eee; }
@@ -65,9 +63,8 @@
         .trx-input-box { width: 100%; padding: 8px; border-radius: 4px; border: none; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; }
         .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 12px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
 
-        /* Success Popup */
         #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-        .success-card { background: #111; border: 1px solid var(--neon-green); width: 85%; max-width: 300px; padding: 30px; border-radius: 20px; text-align: center; }
+        .success-card { background: #111; border: 1px solid var(--neon-green); width: 85%; max-width: 320px; padding: 30px; border-radius: 20px; text-align: center; }
 
         footer { text-align: center; padding: 25px 10px; border-top: 1px solid var(--border-color); font-size: 10px; background: #000; }
         .glow-text { color: var(--neon-green); text-shadow: 0 0 8px rgba(0, 255, 136, 0.6); font-weight: bold; }
@@ -127,8 +124,7 @@
 <div id="contact" class="page">
     <div class="box">
         <h2>Contact Us</h2>
-        <p style="text-align:center; color:#ccc; margin-bottom:10px;">For any issues, contact us:</p>
-        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:default;">Message on WhatsApp</button>
+        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold;">Message on WhatsApp</button>
         <p style="margin-top:15px; font-size:13px; text-align:center; color:#666;">Email: support@chorbazer.com</p>
     </div>
 </div>
@@ -153,8 +149,12 @@
 <div id="success-popup">
     <div class="success-card">
         <h2 style="color:var(--neon-green)">ORDER SUCCESS!</h2>
-        <p style="margin:15px 0; color:#aaa;">Processing your top-up...</p>
-        <button onclick="closeSuccess()" style="background:var(--neon-green); color:#000; border:none; padding:10px 25px; border-radius:5px; font-weight:bold; cursor:pointer;">CLOSE</button>
+        <p style="margin:20px 0; color:#fff; font-size:15px; font-weight:bold; line-height:1.5;">
+            অর্ডার সফল হয়েছে!<br>
+            <span style="color:var(--neon-yellow)">৩০ থেকে ৪০ মিনিটের মধ্যে</span><br>
+            আপনার আইডিতে ডায়মন্ড চলে যাবে।
+        </p>
+        <button onclick="closeSuccess()" style="background:var(--neon-green); color:#000; border:none; padding:12px 30px; border-radius:5px; font-weight:bold; cursor:pointer;">ঠিক আছে</button>
     </div>
 </div>
 
@@ -186,7 +186,6 @@
         document.getElementById('bkash-modal').style.display = 'flex';
     }
 
-    // Real Order History Logic
     function handleRealOrder() {
         const trx = document.getElementById('trx-input').value;
         const uid = document.getElementById('uid-input').value;
@@ -195,7 +194,6 @@
         document.getElementById('bkash-modal').style.display = 'none';
         document.getElementById('success-popup').style.display = 'flex';
         
-        // Show Real Order in History Box
         clearInterval(notifyInterval);
         const notify = document.getElementById('notify-box');
         notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${uid} just bought ${selectedPackName}.</span>`;
@@ -203,7 +201,7 @@
 
     function closeSuccess() {
         document.getElementById('success-popup').style.display = 'none';
-        startOrderHistory(); // Resume fake history after real order
+        startOrderHistory(); 
     }
 
     function startOrderHistory() {
