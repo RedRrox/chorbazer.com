@@ -14,6 +14,9 @@
             --border: #e5e7eb;
             --whatsapp-color: #25d366;
             --telegram-color: #0088cc;
+            --alert-bg: #fff7ed;
+            --alert-border: #ffedd5;
+            --alert-text: #c2410c;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -73,6 +76,12 @@
 
         .btn-buy { width: 100%; padding: 16px; background: var(--purple-main); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-size: 16px; transition: 0.3s; }
         .btn-buy:hover { background: #4c1d95; box-shadow: 0 6px 15px rgba(106, 13, 173, 0.3); }
+
+        /* Rules Dynamic Box Style */
+        .rules-container { background: var(--alert-bg); border: 1px solid var(--alert-border); border-radius: 12px; padding: 15px; margin-top: 15px; }
+        .rules-title { font-family: 'Poppins', sans-serif; font-weight: bold; color: var(--alert-text); font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+        .rules-list { font-size: 13px; color: #4a5568; line-height: 1.6; list-style: none; text-align: left; }
+        .rules-list li { margin-bottom: 8px; position: relative; padding-left: 5px; }
 
         /* Contact & About Styling */
         .about-text { font-size: 15px; line-height: 1.6; color: #4b5563; text-align: justify; margin-bottom: 15px; font-family: 'Poppins', sans-serif; }
@@ -151,6 +160,12 @@
     <div class="box">
         <div style="color:var(--purple-main); font-size:22px; font-weight:bold; text-align: center;">Total: ৳ <span id="sum-total">0</span></div>
         <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
+    </div>
+
+    <div class="rules-container" id="dynamic-rules-box">
+        <div class="rules-title">⚠️ Rules & Conditions</div>
+        <ul class="rules-list" id="rules-content-list">
+            </ul>
     </div>
 </div>
 
@@ -262,14 +277,14 @@
         { name: "5xWeekly", price: 800 }
     ];
 
-    // ৩. নতুন যুক্ত হওয়া ইভো অ্যাক্সেস প্যাকের ডেটা
+    // ৩. ইভো অ্যাক্সেস প্যাকের ডেটা
     const evoAccessPacks = [
         { name: "3 Days Evo Access", price: 90 },
         { name: "7 Days Evo Access", price: 130 },
         { name: "30 Days Evo Access", price: 340 }
     ];
 
-    // ৪. নতুন যুক্ত হওয়া লেভেল আপ পাস প্যাকের ডেটা
+    // ৪. লেভেল আপ পাস প্যাকের ডেটা
     const levelUpPacks = [
         { name: "Level Up Package - Level 6", price: 50 },
         { name: "Level Up Package - Level 10", price: 80 },
@@ -279,6 +294,38 @@
         { name: "Level Up Package - Level 30", price: 110 },
         { name: "Full Level Up Pass", price: 430 }
     ];
+
+    // প্রতিটা ক্যাটাগরির জন্য আলাদা রুলস টেক্সট ডেটাবেজ
+    const rulesData = {
+        'FreeFire UID TopUp': [
+            "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
+            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ দায়ী নয় ।",
+            "⦿ Order কমপ্লিট হওয়ার পরেও আইডিতে ডাইমন্ড না গেলে চেক করার জন্য ID Pass দিতে হবে।",
+            "⦿ অর্ডার Cancel হলে বা কোনো প্রকার সমস্যা হলে অবস্যই whatsapp বা telegram এ জানাতে হবে।"
+        ],
+        'Free Fire Membership': [
+            "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
+            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ দায়ী নয় ।",
+            "⦿ Order কমপ্লিট হওয়ার পরেও আইডিতে ডাইমন্ড না গেলে চেক করার জন্য ID Pass দিতে হবে।",
+            "⦿ অর্ডার Cancel হলে বা কোনো প্রকার সমস্যা হলে অবস্যই whatsapp বা telegram এ জানাতে হবে।"
+        ],
+        'Evo Access UID': [
+            "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
+            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ দায়ী নয় ।",
+            "⦿ Order কমপ্লিট হওয়ার পরেও আইডিতে ডাইমন্ড না গেলে চেক করার জন্য ID Pass দিতে হবে।",
+            "⦿ অর্ডার Cancel হলে বা কোনো প্রকার সমস্যা হলে অবস্যই whatsapp বা telegram এ জানাতে হবে।"
+        ],
+        'Level Up Pass': [
+            "⦿ যারা আগে ৩০ লেভেল পর্যন্ত ৮০০ ডায়মন্ড এর Level Up Pass নিয়েছেন, তারা আর নিতে পারবেন না।",
+            "⦿ একটা আইডিতে একবারই নিতে পারবেন, একবার নেওয়া হলে, ভবিষ্যতে সেই একই আইডিতে আর নিতে পারবেন না।",
+            "⦿ নতুন Level Up Pass প্রত্যেক লেভেলের (LV.6 ,10, 15, 20, 25, 30) জন্য আলাদা করে অর্ডার করতে হবে। আগের মত একটা অর্ডার করে, সবগুলো লেভেলের জন্য ডায়মন্ড পাবেন না।",
+            "⦿ আপনার আইডির লেভেল বেশি হলে কম লেভেল এর জন্য অর্ডার করা যাবে যদি আগে সেটা না নেয়া হয়ে থাকে। কিন্তু, আইডির লেভেল কম হলে বেশি লেভেল এর জন্য আগে থেকেই অর্ডার করতে পারবেন না। লেভেল বাড়লে সেটা অর্ডার করতে পারবেন। (উদাহরনঃ যদি আইডি লেভেল 9 থাকে, তাহলে 6 লেভেলের লেভেলে আপ পাস না নিয়ে থাকলে সেটা অর্ডার করতে পারেন, কিন্তু 10 লেভেলের জন্য অর্ডার করা যাবে না। 10 Level এ যাওয়ার পরেই সেটা অর্ডার করা যাবে।)",
+            "📊 Level Details: LV 6 (120💎) | LV 10 (200💎) | LV 15 (200💎) | LV 20 (200💎) | LV 25 (200💎) | LV 30 (350💎) = Total : 1270 Diamond.",
+            "⦿ শুধুমাত্র Bangladesh সার্ভারের Player ID/UID দিয়ে Top Up করা যাবে। অন্য সার্ভারের Player ID/UID হলে অর্ডার করবেন না।",
+            "⦿ Player ID Code/UID ভুল দিয়ে Diamond না পেলে কর্তৃপক্ষ দায়ী নয় ।",
+            "⦿ ইভেন্ট টাইমে কিছুটা সময় লাগতে পারে তাই ধৈর্য হারা হবেন না।"
+        ]
+    };
 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -311,6 +358,15 @@
                 </div>
             `;
         });
+
+        // নির্দিষ্ট ক্যাটাগরির রুলস ডাইনামিকালি লোড করা
+        const rulesListHTML = document.getElementById('rules-content-list');
+        rulesListHTML.innerHTML = "";
+        if(rulesData[categoryName]) {
+            rulesData[categoryName].forEach(rule => {
+                rulesListHTML.innerHTML += `<li>${rule}</li>`;
+            });
+        }
         
         showPage('pack-page');
     }
