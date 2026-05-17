@@ -20,7 +20,7 @@
         body { background: var(--white); color: var(--text-dark); overflow-x: hidden; width: 100%; }
 
         header { background: var(--purple-main); padding: 15px 0; text-align: center; border-bottom: 3px solid #4c1d95; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .logo { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--white); letter-spacing: 2px; font-weight: 700; }
+        .logo { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--white); letter-spacing: 2px; font-weight: 700; cursor: pointer; }
         
         nav { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
         .nav-btn {
@@ -44,14 +44,32 @@
         .box { background: var(--white); border: 1px solid var(--border); padding: 20px; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         h2 { font-size: 15px; margin-bottom: 15px; color: var(--purple-main); text-transform: uppercase; border-left: 4px solid var(--purple-main); padding-left: 10px; font-family: 'Poppins', sans-serif; }
 
+        /* Category Card Styling */
+        .category-card {
+            background: linear-gradient(135deg, #7c3aed, #6a0dad); color: white;
+            padding: 25px 20px; border-radius: 16px; margin-bottom: 15px; cursor: pointer;
+            text-align: center; font-weight: bold; font-size: 20px; letter-spacing: 1px;
+            box-shadow: 0 6px 15px rgba(106, 13, 173, 0.15); transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Poppins', sans-serif; text-transform: uppercase;
+        }
+        .category-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(106, 13, 173, 0.3); }
+
+        /* Back Button */
+        .back-btn {
+            background: none; border: 1px solid var(--purple-main); color: var(--purple-main);
+            padding: 6px 15px; border-radius: 20px; font-size: 13px; cursor: pointer;
+            font-weight: bold; margin-bottom: 15px; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .back-btn:hover { background: var(--purple-main); color: white; }
+
         input[type="text"] { width: 100%; padding: 14px; background: #f9fafb; border: 2px solid #e5e7eb; color: var(--text-dark); border-radius: 10px; text-align: center; font-weight: bold; outline: none; transition: 0.3s; }
         input[type="text"]:focus { border-color: var(--purple-main); }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .item { background: var(--white); border: 2px solid #f3f4f6; padding: 20px; border-radius: 14px; text-align: center; cursor: pointer; position: relative; transition: 0.3s; }
+        .item { background: var(--white); border: 2px solid #f3f4f6; padding: 15px 10px; border-radius: 14px; text-align: center; cursor: pointer; position: relative; transition: 0.3s; }
         .item:hover { border-color: #ddd6fe; background: var(--purple-light); }
         .item.active { border-color: var(--purple-main); background: var(--purple-light); box-shadow: 0 4px 8px rgba(106, 13, 173, 0.1); }
-        .price { color: var(--purple-main); font-weight: bold; font-size: 20px; display: block; margin-top: 5px; }
+        .price { color: var(--purple-main); font-weight: bold; font-size: 18px; display: block; margin-top: 5px; }
 
         .btn-buy { width: 100%; padding: 16px; background: var(--purple-main); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-size: 16px; transition: 0.3s; }
         .btn-buy:hover { background: #4c1d95; box-shadow: 0 6px 15px rgba(106, 13, 173, 0.3); }
@@ -89,7 +107,7 @@
 <body onload="startLiveOrderTracking()">
 
 <header>
-    <div class="logo">CHOR BAZAR</div>
+    <div class="logo" onclick="showPage('home')">CHOR BAZAR</div>
     <nav>
         <button class="nav-btn" onclick="showPage('home')">Home</button>
         <button class="nav-btn" onclick="showPage('about')">About</button>
@@ -99,23 +117,37 @@
 
 <div id="home" class="page active">
     <div id="notify-box">🔄 Loading last order details...</div>
+    
+    <div style="margin-bottom: 15px; font-weight: bold; color: var(--purple-main); font-family: 'Poppins'; text-transform: uppercase; font-size: 14px;">Select Game / Category</div>
+    
+    <div class="category-card" onclick="openCategory('FreeFire UID TopUp')">
+        🎮 Free Fire UID TopUp
+    </div>
+    <div class="category-card" onclick="alert('Coming Soon!')">
+        🛡 Free Fire Membership
+    </div>
+    <div class="category-card" onclick="alert('Coming Soon!')">
+        ⚡ Evo Access UID
+    </div>
+    <div class="category-card" onclick="alert('Coming Soon!')">
+        ⭐ Level Up Pass
+    </div>
+</div>
+
+<div id="pack-page" class="page">
+    <button class="back-btn" onclick="showPage('home')">⬅ Back to Categories</button>
+    
     <div class="box">
         <h2>1. Player UID</h2>
         <input type="text" id="uid-input" placeholder="Enter Player UID here">
     </div>
+    
     <div class="box">
-        <h2>2. Select Pack</h2>
-        <div class="grid">
-            <div class="item" onclick="selectPack(this, 'Weekly Membership', 140)">
-                <span style="font-weight: 700;">Weekly Pack</span>
-                <span class="price">৳ 140</span>
+        <h2 id="pack-title">2. Select Recharge</h2>
+        <div class="grid" id="pack-grid">
             </div>
-            <div class="item" onclick="selectPack(this, 'Monthly Membership', 650)">
-                <span style="font-weight: 700;">Monthly Pack</span>
-                <span class="price">৳ 650</span>
-            </div>
-        </div>
     </div>
+    
     <div class="box">
         <div style="color:var(--purple-main); font-size:22px; font-weight:bold; text-align: center;">Total: ৳ <span id="sum-total">0</span></div>
         <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
@@ -191,13 +223,62 @@
 <script>
     let selectedPrice = 0;
     let selectedPackName = "";
+    let activeCategory = ""; // লাইভ ক্যাটাগরি ট্র্যাকিং
     let lastLoadedTxID = ""; 
 
     const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
+    // আপনার দেওয়া ফ্রি ফায়ার ইউআইডি টপ-আপ প্যাকের ডেটাবেজ
+    const ffUidPacks = [
+        { name: "25 Diamond", price: 23 },
+        { name: "50 Diamond", price: 38 },
+        { name: "115 Diamond", price: 80 },
+        { name: "240 Diamond", price: 160 },
+        { name: "355 Diamond", price: 240 },
+        { name: "480 Diamond", price: 319 },
+        { name: "610 Diamond", price: 405 },
+        { name: "850 Diamond", price: 560 },
+        { name: "1240 Diamond", price: 805 },
+        { name: "2530 Diamond", price: 1615 },
+        { name: "5060 Diamond", price: 3225 },
+        { name: "10120 Diamond", price: 6445 },
+        { name: "Monthly", price: 800 },
+        { name: "Weekly Lite", price: 50 },
+        { name: "Weekly", price: 160 },
+        { name: "2xWeekly", price: 320 },
+        { name: "2xMonthly", price: 1600 }
+    ];
+
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
+        if(pageId === 'home') {
+            // হোম পেজে ব্যাক করলে সিলেকশন রিসেট হবে
+            selectedPrice = 0; selectedPackName = "";
+            document.getElementById('sum-total').innerText = 0;
+            document.getElementById('uid-input').value = "";
+        }
+    }
+
+    // নির্দিষ্ট ক্যাটাগরি পেজ ওপেন করার লজিক
+    function openCategory(categoryName) {
+        activeCategory = categoryName;
+        document.getElementById('pack-title').innerText = "2. Select Recharge";
+        
+        const grid = document.getElementById('pack-grid');
+        grid.innerHTML = ""; // আগের প্যাক ক্লিয়ার করা
+        
+        if(categoryName === 'FreeFire UID TopUp') {
+            ffUidPacks.forEach(pack => {
+                grid.innerHTML += `
+                    <div class="item" onclick="selectPack(this, '${pack.name}', ${pack.price})">
+                        <span style="font-weight: 700;">${pack.name}</span>
+                        <span class="price">৳ ${pack.price}</span>
+                    </div>
+                `;
+            });
+        }
+        showPage('pack-page');
     }
 
     function selectPack(el, name, price) {
@@ -229,6 +310,7 @@
             "data": [
                 {
                     "Time": new Date().toLocaleString("en-US", {timeZone: "Asia/Dhaka"}),
+                    "Category": activeCategory, // শিটে ক্যাটাগরি সাবমিট হবে
                     "Player UID": uid,
                     "Selected Pack": selectedPackName,
                     "bKash Number": phone,
@@ -264,7 +346,7 @@
         });
     }
 
-    function closeSuccess() { document.getElementById('success-popup').style.display = 'none'; }
+    function closeSuccess() { showPage('home'); document.getElementById('success-popup').style.display = 'none'; }
     function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Number Copied!"); }
 
     function updateNotifyBox(uid, pack) {
