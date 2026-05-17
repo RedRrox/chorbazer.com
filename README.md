@@ -11,7 +11,6 @@
             --white: #ffffff;
             --text-dark: #1f2937;
             --bkash-color: #d12053;
-            --nagad-color: #f26522;
             --border: #e5e7eb;
             --whatsapp-color: #25d366;
             --telegram-color: #0088cc;
@@ -129,7 +128,7 @@
         .pay-method-card {
             border: 2px solid #e5e7eb;
             border-radius: 14px;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
@@ -139,9 +138,10 @@
             align-items: center;
             justify-content: center;
             height: 65px;
+            overflow: hidden;
         }
         .pay-method-card img {
-            height: 35px;
+            height: 100%;
             width: auto;
             object-fit: contain;
         }
@@ -149,7 +149,6 @@
             border-color: var(--purple-main);
             background: var(--purple-light);
         }
-        /* নগদ লকড / সুন স্টাইল */
         .pay-method-card.disabled {
             opacity: 0.65;
             cursor: not-allowed;
@@ -158,7 +157,7 @@
         }
         .soon-badge {
             position: absolute;
-            top: -8px;
+            top: -6px;
             right: -5px;
             background: #ef4444;
             color: white;
@@ -169,6 +168,7 @@
             font-family: 'Poppins', sans-serif;
             text-transform: uppercase;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 5;
         }
 
         .rules-container { background: var(--alert-bg); border: 1px solid var(--alert-border); border-radius: 12px; padding: 15px; margin-top: 15px; }
@@ -192,13 +192,13 @@
         /* bKash Modal */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .bkash-content { background: #fff; width: 92%; max-width: 360px; border-radius: 20px; overflow: hidden; color: #333; padding-bottom: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .bkash-header { padding: 15px; text-align: center; background: #f8f9fa; border-bottom: 1px solid #eee; }
-        .bkash-header img { width: 90px; }
+        .bkash-header { padding: 10px; text-align: center; background: #f8f9fa; border-bottom: 1px solid #eee; display: flex; justify-content: center; align-items: center; height: 60px; }
+        .bkash-header img { height: 100%; width: auto; object-fit: contain; }
         .bkash-main-body { background: var(--bkash-color); color: #fff; padding: 15px; margin: 10px; border-radius: 15px; text-align: center; }
         .trx-input-box { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #eee; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; font-size: 15px; }
         .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 14px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; font-size: 16px; }
 
-        /* অ্যানিমেটেড সবুজ সাকসেস পপআপ */
+        /* কাস্টম সাকসেস পপআপ */
         #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .success-card { 
             background: var(--white); width: 85%; max-width: 360px; padding: 35px 20px; 
@@ -277,10 +277,10 @@
         <h2>3. Select Payment Method</h2>
         <div class="payment-method-grid">
             <div class="pay-method-card active" id="method-bkash" onclick="selectPaymentMethod('bkash')">
-                <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg" alt="bKash">
+                <img src="bkp.jpg.png" alt="bKash">
             </div>
             <div class="pay-method-card disabled" id="method-nagad">
-                <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad">
+                <img src="nagad.jpg.png" alt="Nagad">
                 <span class="soon-badge">Soon</span>
             </div>
         </div>
@@ -317,7 +317,7 @@
 
 <div id="bkash-modal">
     <div class="bkash-content">
-        <div class="bkash-header"><img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg" alt="bkash"></div>
+        <div class="bkash-header"><img src="bkp.jpg.png" alt="bkash"></div>
         <div class="bkash-main-body">
             <h3 style="font-size: 14px; margin-bottom: 10px;">আপনার বিকাশ নম্বর ও TxID দিন</h3>
             <input type="text" class="trx-input-box" id="customer-phone" placeholder="নম্বরঃ 01XXXXXXXXX" maxlength="11">
@@ -385,7 +385,7 @@
     const rulesData = {
         'FreeFire UID TopUp': [
             "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
-            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ দায়ী নয় ।",
+            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ دায়ী নয় ।",
             "⦿ Order কমপ্লিট হওয়ার পরেও আইডিতে ডাইমন্ড না গেলে চেক করার জন্য ID Pass দিতে হবে।",
             "⦿ অর্ডার Cancel হলে বা কোনো প্রকার সমস্যা হলে অবস্যই whatsapp বা telegram এ জানাতে হবে।"
         ],
@@ -461,7 +461,6 @@
     }
 
     function selectPaymentMethod(method) {
-        // নগদ ডিসেবলড তাই শুধু বিকাশ সিলেক্ট করা যাবে
         if(method === 'bkash') {
             selectedMethod = "bkash";
             document.getElementById('method-bkash').classList.add('active');
