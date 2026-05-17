@@ -25,12 +25,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--white); color: var(--text-dark); overflow-x: hidden; width: 100%; }
 
-        /* ক্রস বাটনসহ টপ নোটিশ বারের নতুন স্টাইল */
+        /* টপ নোটিশ বার */
         .top-notice-bar {
             background: var(--blue-notice-bg);
             border-bottom: 2px solid var(--blue-notice-border);
             color: var(--blue-notice-text);
-            padding: 12px 40px 12px 15px; /* ডানপাশে ক্রস আইকনের জন্য জায়গা রাখা হয়েছে */
+            padding: 12px 40px 12px 15px;
             text-align: center;
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
@@ -42,7 +42,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* নোটিশ বন্ধ করার ক্রস আইকন */
         .close-notice-btn {
             position: absolute;
             right: 15px;
@@ -54,9 +53,7 @@
             transition: color 0.2s ease;
             user-select: none;
         }
-        .close-notice-btn:hover {
-            color: #d00000; /* হোভার করলে লাল হবে */
-        }
+        .close-notice-btn:hover { color: #d00000; }
 
         header { background: var(--purple-main); padding: 15px 0; text-align: center; border-bottom: 3px solid #4c1d95; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .logo { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--white); letter-spacing: 2px; font-weight: 700; cursor: pointer; }
@@ -83,17 +80,44 @@
         .box { background: var(--white); border: 1px solid var(--border); padding: 20px; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         h2 { font-size: 15px; margin-bottom: 15px; color: var(--purple-main); text-transform: uppercase; border-left: 4px solid var(--purple-main); padding-left: 10px; font-family: 'Poppins', sans-serif; }
 
-        /* Category Card Styling */
-        .category-card {
-            background: linear-gradient(135deg, #7c3aed, #6a0dad); color: white;
-            padding: 25px 20px; border-radius: 16px; margin-bottom: 15px; cursor: pointer;
-            text-align: center; font-weight: bold; font-size: 20px; letter-spacing: 1px;
-            box-shadow: 0 6px 15px rgba(106, 13, 173, 0.15); transition: transform 0.3s, box-shadow 0.3s;
-            font-family: 'Poppins', sans-serif; text-transform: uppercase;
+        /* মোবাইল ফ্রেন্ডলি ইমেজ ক্যাটাগরি গ্রিড (২টি করে কলাম) */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        .category-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(106, 13, 173, 0.3); }
 
-        /* Back Button */
+        .category-image-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        .category-image-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(106, 13, 173, 0.15);
+        }
+        .category-image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .category-card-title {
+            padding: 10px 5px;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            border-top: 1px solid #f3f4f6;
+        }
+
         .back-btn {
             background: none; border: 1px solid var(--purple-main); color: var(--purple-main);
             padding: 6px 15px; border-radius: 20px; font-size: 13px; cursor: pointer;
@@ -113,13 +137,11 @@
         .btn-buy { width: 100%; padding: 16px; background: var(--purple-main); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-size: 16px; transition: 0.3s; }
         .btn-buy:hover { background: #4c1d95; box-shadow: 0 6px 15px rgba(106, 13, 173, 0.3); }
 
-        /* Rules Dynamic Box Style */
         .rules-container { background: var(--alert-bg); border: 1px solid var(--alert-border); border-radius: 12px; padding: 15px; margin-top: 15px; }
         .rules-title { font-family: 'Poppins', sans-serif; font-weight: bold; color: var(--alert-text); font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
         .rules-list { font-size: 13px; color: #4a5568; line-height: 1.6; list-style: none; text-align: left; }
         .rules-list li { margin-bottom: 8px; position: relative; padding-left: 5px; }
 
-        /* Contact & About Styling */
         .about-text { font-size: 15px; line-height: 1.6; color: #4b5563; text-align: justify; margin-bottom: 15px; font-family: 'Poppins', sans-serif; }
         .support-badge { background: #10b981; color: white; display: inline-block; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; margin-top: 10px; }
         
@@ -170,17 +192,26 @@
     
     <div style="margin-bottom: 15px; font-weight: bold; color: var(--purple-main); font-family: 'Poppins'; text-transform: uppercase; font-size: 14px;">Select Game / Category</div>
     
-    <div class="category-card" onclick="openCategory('FreeFire UID TopUp')">
-        🎮 Free Fire UID TopUp
-    </div>
-    <div class="category-card" onclick="openCategory('Free Fire Membership')">
-        🛡 Free Fire Membership
-    </div>
-    <div class="category-card" onclick="openCategory('Evo Access UID')">
-        ⚡ Evo Access UID
-    </div>
-    <div class="category-card" onclick="openCategory('Level Up Pass')">
-        ⭐ Level Up Pass
+    <div class="category-grid">
+        <div class="category-image-card" onclick="openCategory('FreeFire UID TopUp')">
+            <img src="ffuidtopup.jpg" alt="Free Fire UID TopUp">
+            <div class="category-card-title">UID Top Up</div>
+        </div>
+        
+        <div class="category-image-card" onclick="openCategory('Free Fire Membership')">
+            <img src="ffmember.jpg" alt="Free Fire Membership">
+            <div class="category-card-title">Membership</div>
+        </div>
+        
+        <div class="category-image-card" onclick="openCategory('Evo Access UID')">
+            <img src="evoacces.jpg" alt="Evo Access UID">
+            <div class="category-card-title">Evo Access</div>
+        </div>
+        
+        <div class="category-image-card" onclick="openCategory('Level Up Pass')">
+            <img src="lvlup.jpg" alt="Level Up Pass">
+            <div class="category-card-title">Level Up Pass</div>
+        </div>
     </div>
 </div>
 
@@ -249,9 +280,10 @@
             <h3 style="font-size: 14px; margin-bottom: 10px;">আপনার বিকাশ নম্বর ও TxID দিন</h3>
             <input type="text" class="trx-input-box" id="customer-phone" placeholder="নম্বরঃ 01XXXXXXXXX" maxlength="11">
             <input type="text" class="trx-input-box" id="trx-input" placeholder="ট্রানজেকশন আইডি দিন" maxlength="10">
-            <p style="font-size: 11px; margin-top: 10px; text-align: left; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">
-                ● টাকা পাঠানঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:2px 6px; font-size:10px; border-radius:4px; border:none; background:#fff; cursor:pointer;">Copy</button><br>
-                ● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b>
+            <p style="font-size: 12px; margin-top: 10px; text-align: left; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; line-height: 1.4;">
+                ● send money করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:2px 6px; font-size:10px; border-radius:4px; border:none; background:#fff; cursor:pointer;">Copy</button><br>
+                ● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b><br>
+                <span style="color: #ffe4e6; font-weight: bold; display: block; margin-top: 5px; background: rgba(0,0,0,0.15); padding: 5px; border-radius: 4px;">⚠️ সতর্কবার্তা: অবশ্যই "Send Money" করতে হবে। মোবাইল রিচার্জ বা ক্যাশআউট করলে পেমেন্ট গ্রহণযোগ্য হবে না!</span>
             </p>
         </div>
         <button class="verify-red-btn" id="verify-btn" onclick="handleRealOrder()">VERIFY PAYMENT</button>
@@ -284,7 +316,6 @@
 
     const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
-    // ১. ফ্রি ফায়ার ইউআইডি টপ-আপ প্যাকের ডেটা
     const ffUidPacks = [
         { name: "25 Diamond", price: 23 },
         { name: "50 Diamond", price: 38 },
@@ -305,7 +336,6 @@
         { name: "2xMonthly", price: 1600 }
     ];
 
-    // ২. ফ্রি ফায়ার মেম্বারশিপ প্যাকের ডেটা
     const ffMembershipPacks = [
         { name: "Weekly Lite", price: 50 },
         { name: "Weekly", price: 160 },
@@ -318,14 +348,12 @@
         { name: "5xWeekly", price: 800 }
     ];
 
-    // ৩. ইভো অ্যাক্সেস প্যাকের ডেটা
     const evoAccessPacks = [
         { name: "3 Days Evo Access", price: 90 },
         { name: "7 Days Evo Access", price: 130 },
         { name: "30 Days Evo Access", price: 340 }
     ];
 
-    // ৪. লেভেল আপ পাস প্যাকের ডেটা
     const levelUpPacks = [
         { name: "Level Up Package - Level 6", price: 50 },
         { name: "Level Up Package - Level 10", price: 80 },
@@ -336,7 +364,6 @@
         { name: "Full Level Up Pass", price: 430 }
     ];
 
-    // প্রতিটা ক্যাটাগরির জন্য আলাদা রুলস টেক্সট ডেটাবেজ
     const rulesData = {
         'FreeFire UID TopUp': [
             "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
@@ -368,7 +395,6 @@
         ]
     };
 
-    // নোটিশ ভ্যানিশ করার ফাংশন
     function closeTopNotice() {
         document.getElementById('top-announcement-bar').style.display = 'none';
     }
