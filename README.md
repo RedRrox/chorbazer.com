@@ -319,8 +319,7 @@
     <div class="bkash-content">
         <div class="bkash-header"><img src="bkp.jpg.png" alt="bkash"></div>
         <div class="bkash-main-body">
-            <h3 style="font-size: 14px; margin-bottom: 10px;">আপনার বিকাশ নম্বর ও TxID দিন</h3>
-            <input type="text" class="trx-input-box" id="customer-phone" placeholder="নম্বরঃ 01XXXXXXXXX" maxlength="11">
+            <h3 style="font-size: 14px; margin-bottom: 10px;">আপনার বিকাশ TxID দিন</h3>
             <input type="text" class="trx-input-box" id="trx-input" placeholder="ট্রানজেকশন আইডি দিন" maxlength="10">
             <p style="font-size: 12px; margin-top: 10px; text-align: left; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; line-height: 1.4;">
                 ● send money করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:2px 6px; font-size:10px; border-radius:4px; border:none; background:#fff; cursor:pointer;">Copy</button><br>
@@ -475,11 +474,10 @@
 
     function handleRealOrder() {
         const trx = document.getElementById('trx-input').value.trim();
-        const phone = document.getElementById('customer-phone').value.trim();
         const uid = document.getElementById('uid-input').value.trim();
         const verifyBtn = document.getElementById('verify-btn');
         
-        if (phone.length < 11 || trx.length < 10) return alert("সঠিক ফোন নম্বর ও ১০ অক্ষরের TxID দিন!");
+        if (trx.length < 10) return alert("সঠীক ১০ অক্ষরের TxID দিন!");
         
         verifyBtn.innerText = "VERIFYING...";
         verifyBtn.disabled = true;
@@ -491,7 +489,6 @@
                     "Category": activeCategory, 
                     "Player UID": uid,
                     "Selected Pack": selectedPackName,
-                    "bKash Number": phone,
                     "TxID": trx.toUpperCase(),
                     "Status": "Pending"
                 }
@@ -511,7 +508,6 @@
                 document.getElementById('bkash-modal').style.display = 'none';
                 document.getElementById('success-popup').style.display = 'flex';
                 document.getElementById('trx-input').value = "";
-                document.getElementById('customer-phone').value = "";
                 document.getElementById('uid-input').value = "";
                 updateNotifyBox(uid, selectedPackName);
                 lastLoadedTxID = trx.toUpperCase();
@@ -566,7 +562,6 @@
         setInterval(fetchLiveLastOrder, 12000); 
     }
 
-    document.getElementById('customer-phone').addEventListener('input', function (e) { this.value = this.value.replace(/[^0-9]/g, ''); });
     document.getElementById('uid-input').addEventListener('input', function (e) { this.value = this.value.replace(/[^0-9]/g, ''); });
 </script>
 </body>
